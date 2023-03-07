@@ -1,0 +1,23 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: kafka-consumer
+  namespace: strimzi
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: kafka-deterministic-consumer
+  pollingInterval: 30
+  idleReplicaCount: 0
+  minReplicaCount: 1
+  maxReplicaCount: 6
+  triggers:
+  - type: kafka
+    metadata:
+      bootstrapServers: strimzi-cluster-kafka-bootstrap.strimzi.svc:9092
+      consumerGroup: lag-consumer-test
+      topic: test
+      lagThreshold: "20"
+      offsetResetPolicy: latest
+      allowIdleConsumers: "false"

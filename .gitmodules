@@ -1,0 +1,3 @@
+[submodule "quarkus-kafka-deterministic-consumer"]
+	path = quarkus-kafka-deterministic-consumer
+	url = https://github.com/rgordill/quarkus-kafka-deterministic-consumer
